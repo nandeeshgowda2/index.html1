@@ -1,59 +1,65 @@
 const modal = document.getElementById("modal");
 const modalBody = document.getElementById("modalBody");
 
-// ================= GENERAL =================
-
-function scrollToSection(id) {
-
-```
-document.getElementById(id).scrollIntoView({
-    behavior: "smooth"
-});
-```
-
-}
-
-// ================= LOGIN =================
+// =====================================================
+// 1. LOGIN
+// =====================================================
 
 function showLogin() {
 
 ```
 modalBody.innerHTML = `
 
-    <h2>Login to SkillBridge AI</h2>
+    <h2>🔐 Student Login</h2>
 
-    <p style="color:#667085;margin-bottom:20px;">
-        Select your role to continue.
+    <p class="modal-description">
+        Login to access your SkillBridge AI dashboard.
     </p>
 
-    <label>Name</label>
+    <label>Full Name</label>
 
     <input
         type="text"
-        id="loginName"
+        id="studentName"
         placeholder="Enter your name"
+    >
+
+    <label>Email</label>
+
+    <input
+        type="email"
+        id="studentEmail"
+        placeholder="Enter your email"
+    >
+
+    <label>Student ID</label>
+
+    <input
+        type="text"
+        id="studentID"
+        placeholder="Enter your student ID"
     >
 
     <label>Role</label>
 
-    <select id="loginRole">
+    <select id="studentRole">
 
-        <option value="student">
+        <option value="Student">
             Student
         </option>
 
-        <option value="industry">
-            Industry
+        <option value="Faculty">
+            Faculty
         </option>
 
-        <option value="faculty">
-            Faculty
+        <option value="Industry">
+            Industry
         </option>
 
     </select>
 
-    <button onclick="loginUser()">
-        Login
+    <button onclick="loginStudent()">
+        Login →
     </button>
 
 `;
@@ -63,105 +69,353 @@ modal.style.display = "flex";
 
 }
 
-function loginUser() {
+// =====================================================
+// 2. LOGIN VALIDATION
+// =====================================================
+
+function loginStudent() {
 
 ```
 const name =
-    document.getElementById("loginName").value;
+    document.getElementById("studentName").value.trim();
+
+const email =
+    document.getElementById("studentEmail").value.trim();
+
+const studentID =
+    document.getElementById("studentID").value.trim();
 
 const role =
-    document.getElementById("loginRole").value;
+    document.getElementById("studentRole").value;
 
-if (name.trim() === "") {
+
+// Check empty fields
+
+if (name === "") {
 
     alert("Please enter your name.");
 
     return;
-
 }
 
-localStorage.setItem("userName", name);
-localStorage.setItem("userRole", role);
+if (email === "") {
+
+    alert("Please enter your email.");
+
+    return;
+}
+
+if (studentID === "") {
+
+    alert("Please enter your Student ID.");
+
+    return;
+}
+
+
+// Save student information
+
+const student = {
+
+    name: name,
+
+    email: email,
+
+    studentID: studentID,
+
+    role: role
+
+};
+
+
+localStorage.setItem(
+    "studentData",
+    JSON.stringify(student)
+);
+
+
+// Success message
 
 modalBody.innerHTML = `
 
-    <h2>Welcome, ${name}! 🎉</h2>
+    <div class="success-box">
 
-    <p style="margin:15px 0;">
-        You have successfully logged in as
-        <strong>${role}</strong>.
-    </p>
+        <div class="success-icon">
+            ✓
+        </div>
 
-    <button onclick="closeModal()">
-        Continue to Dashboard
-    </button>
+        <h2>Login Successful!</h2>
+
+        <p>
+            Welcome <strong>${name}</strong> 👋
+        </p>
+
+        <p>
+            Your SkillBridge AI profile is ready.
+        </p>
+
+        <button onclick="openAssessment()">
+            Take Skill Assessment →
+        </button>
+
+    </div>
 
 `;
 ```
 
 }
 
-// ================= ASSESSMENT =================
+// =====================================================
+// 3. START SKILL ASSESSMENT
+// =====================================================
 
 function startAssessment() {
 
 ```
+const student =
+    localStorage.getItem("studentData");
+
+
+// If student is not logged in
+
+if (!student) {
+
+    modalBody.innerHTML = `
+
+        <h2>🔐 Login Required</h2>
+
+        <p>
+            Please login before taking the
+            skill assessment.
+        </p>
+
+        <button onclick="showLogin()">
+            Login Now →
+        </button>
+
+    `;
+
+    modal.style.display = "flex";
+
+    return;
+}
+
+
+openAssessment();
+```
+
+}
+
+// =====================================================
+// 4. OPEN ASSESSMENT
+// =====================================================
+
+function openAssessment() {
+
+```
 modalBody.innerHTML = `
 
-    <h2>🧠 Skill Assessment</h2>
+    <h2>🧠 AI Skill Assessment</h2>
 
-    <p style="color:#667085;">
-        Answer these questions to generate your
-        initial skill profile.
+    <p class="modal-description">
+
+        Answer the following questions.
+        Your responses will be used to calculate
+        your initial industry-readiness score.
+
     </p>
 
-    <br>
 
-    <label>How comfortable are you with programming?</label>
+    <!-- QUESTION 1 -->
 
-    <select id="programming">
+    <div class="question">
 
-        <option value="30">Beginner</option>
-        <option value="60">Intermediate</option>
-        <option value="90">Advanced</option>
+        <label>
+            1. How comfortable are you with programming?
+        </label>
 
-    </select>
+        <select id="programming">
 
+            <option value="20">
+                Beginner
+            </option>
 
-    <label>How comfortable are you with databases?</label>
+            <option value="50">
+                Basic
+            </option>
 
-    <select id="database">
+            <option value="75">
+                Intermediate
+            </option>
 
-        <option value="30">Beginner</option>
-        <option value="60">Intermediate</option>
-        <option value="90">Advanced</option>
+            <option value="100">
+                Advanced
+            </option>
 
-    </select>
+        </select>
 
-
-    <label>How good is your problem solving?</label>
-
-    <select id="problem">
-
-        <option value="30">Beginner</option>
-        <option value="60">Intermediate</option>
-        <option value="90">Advanced</option>
-
-    </select>
+    </div>
 
 
-    <label>How good is your communication?</label>
+    <!-- QUESTION 2 -->
 
-    <select id="communication">
+    <div class="question">
 
-        <option value="30">Beginner</option>
-        <option value="60">Intermediate</option>
-        <option value="90">Advanced</option>
+        <label>
+            2. How good are you at problem solving?
+        </label>
 
-    </select>
+        <select id="problemSolving">
 
-    <button onclick="calculateSkills()">
-        Analyze My Skills
+            <option value="20">
+                Beginner
+            </option>
+
+            <option value="50">
+                Basic
+            </option>
+
+            <option value="75">
+                Intermediate
+            </option>
+
+            <option value="100">
+                Advanced
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <!-- QUESTION 3 -->
+
+    <div class="question">
+
+        <label>
+            3. How comfortable are you with databases/SQL?
+        </label>
+
+        <select id="sql">
+
+            <option value="20">
+                I don't know SQL
+            </option>
+
+            <option value="50">
+                Basic
+            </option>
+
+            <option value="75">
+                Intermediate
+            </option>
+
+            <option value="100">
+                Advanced
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <!-- QUESTION 4 -->
+
+    <div class="question">
+
+        <label>
+            4. How good are your communication skills?
+        </label>
+
+        <select id="communication">
+
+            <option value="20">
+                Beginner
+            </option>
+
+            <option value="50">
+                Basic
+            </option>
+
+            <option value="75">
+                Good
+            </option>
+
+            <option value="100">
+                Excellent
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <!-- QUESTION 5 -->
+
+    <div class="question">
+
+        <label>
+            5. How much project experience do you have?
+        </label>
+
+        <select id="projects">
+
+            <option value="20">
+                No project experience
+            </option>
+
+            <option value="50">
+                Academic projects
+            </option>
+
+            <option value="75">
+                Multiple projects
+            </option>
+
+            <option value="100">
+                Industry-level projects
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <!-- QUESTION 6 -->
+
+    <div class="question">
+
+        <label>
+            6. How familiar are you with Git/GitHub?
+        </label>
+
+        <select id="github">
+
+            <option value="20">
+                Beginner
+            </option>
+
+            <option value="50">
+                Basic
+            </option>
+
+            <option value="75">
+                Intermediate
+            </option>
+
+            <option value="100">
+                Advanced
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <button onclick="calculateAssessment()">
+
+        Analyze My Skills 🚀
+
     </button>
 
 `;
@@ -171,248 +425,459 @@ modal.style.display = "flex";
 
 }
 
-function calculateSkills() {
+// =====================================================
+// 5. CALCULATE SKILL SCORE
+// =====================================================
+
+function calculateAssessment() {
 
 ```
 const programming =
     Number(document.getElementById("programming").value);
 
-const database =
-    Number(document.getElementById("database").value);
+const problemSolving =
+    Number(document.getElementById("problemSolving").value);
 
-const problem =
-    Number(document.getElementById("problem").value);
+const sql =
+    Number(document.getElementById("sql").value);
 
 const communication =
     Number(document.getElementById("communication").value);
 
+const projects =
+    Number(document.getElementById("projects").value);
 
-const score =
-    Math.round(
-        (programming +
-         database +
-         problem +
-         communication) / 4
-    );
+const github =
+    Number(document.getElementById("github").value);
 
 
-localStorage.setItem("skillScore", score);
+// Calculate average
 
+const score = Math.round(
+
+    (
+        programming +
+        problemSolving +
+        sql +
+        communication +
+        projects +
+        github
+
+    ) / 6
+
+);
+
+
+// Determine level
 
 let level;
 
-if (score >= 80) {
+if (score >= 85) {
 
-    level = "Advanced";
+    level = "Excellent";
 
-} else if (score >= 60) {
+}
 
-    level = "Intermediate";
+else if (score >= 70) {
 
-} else {
+    level = "Industry Ready";
+
+}
+
+else if (score >= 50) {
+
+    level = "Developing";
+
+}
+
+else {
 
     level = "Beginner";
 
 }
 
 
-let recommendation;
+// Find skill gaps
+
+let gaps = [];
 
 
-if (database < 60) {
+if (programming < 70) {
 
-    recommendation =
-        "Improve SQL and database management.";
+    gaps.push("Programming");
 
-} else if (problem < 60) {
+}
 
-    recommendation =
-        "Practice Data Structures and Algorithms.";
+if (problemSolving < 70) {
 
-} else if (programming < 60) {
+    gaps.push("Problem Solving");
 
-    recommendation =
-        "Strengthen your programming fundamentals.";
+}
 
-} else {
+if (sql < 70) {
 
-    recommendation =
-        "You are ready for advanced industry projects.";
+    gaps.push("SQL / Database");
+
+}
+
+if (communication < 70) {
+
+    gaps.push("Communication");
+
+}
+
+if (projects < 70) {
+
+    gaps.push("Project Experience");
+
+}
+
+if (github < 70) {
+
+    gaps.push("Git / GitHub");
+
+}
+
+
+// Save assessment
+
+const assessment = {
+
+    score: score,
+
+    level: level,
+
+    programming: programming,
+
+    problemSolving: problemSolving,
+
+    sql: sql,
+
+    communication: communication,
+
+    projects: projects,
+
+    github: github,
+
+    gaps: gaps
+
+};
+
+
+localStorage.setItem(
+
+    "skillAssessment",
+
+    JSON.stringify(assessment)
+
+);
+
+
+// Display result
+
+showAssessmentResult(
+    score,
+    level,
+    gaps
+);
+```
+
+}
+
+// =====================================================
+// 6. SHOW ASSESSMENT RESULT
+// =====================================================
+
+function showAssessmentResult(
+score,
+level,
+gaps
+) {
+
+```
+let gapHTML = "";
+
+
+if (gaps.length === 0) {
+
+    gapHTML = `
+
+        <p class="good-message">
+
+            🎉 Excellent!
+            No major skill gaps detected.
+
+        </p>
+
+    `;
+
+}
+
+else {
+
+    gapHTML = `
+
+        <h3>⚠️ Recommended Areas</h3>
+
+        <div class="gap-list">
+
+            ${gaps.map(function(gap) {
+
+                return `
+                    <span>
+                        ${gap}
+                    </span>
+                `;
+
+            }).join("")}
+
+        </div>
+
+    `;
 
 }
 
 
 modalBody.innerHTML = `
 
-    <h2>📊 Your Skill Analysis</h2>
+    <div class="assessment-result">
 
-    <div style="
-        text-align:center;
-        padding:20px;
-        background:#eef2ff;
-        border-radius:15px;
-        margin:20px 0;
-    ">
+        <h2>
+            📊 Your Skill Analysis
+        </h2>
 
-        <h1 style="color:#4f46e5;">
-            ${score}%
-        </h1>
 
-        <p>Industry Readiness</p>
+        <div class="score-circle">
 
-        <strong>${level}</strong>
+            <strong>
+                ${score}%
+            </strong>
+
+            <span>
+                Industry Readiness
+            </span>
+
+        </div>
+
+
+        <h3>
+            Level:
+            <span style="color:#4f46e5;">
+                ${level}
+            </span>
+        </h3>
+
+
+        ${gapHTML}
+
+
+        <div class="recommendation">
+
+            <h3>
+                🤖 AI Recommendation
+            </h3>
+
+            <p>
+
+                Based on your assessment,
+                SkillBridge AI recommends improving
+                your identified skill gaps through
+                courses, projects, certifications and
+                industry internships.
+
+            </p>
+
+        </div>
+
+
+        <button onclick="showLearningPath()">
+
+            View Personalized Learning Path →
+
+        </button>
 
     </div>
-
-    <h3>AI Recommendation</h3>
-
-    <p style="margin:10px 0 20px;">
-        ${recommendation}
-    </p>
-
-    <button onclick="showLearning()">
-        View Personalized Learning Path
-    </button>
 
 `;
 ```
 
 }
 
-// ================= LEARNING =================
+// =====================================================
+// 7. PERSONALIZED LEARNING PATH
+// =====================================================
 
-function showLearning() {
-
-```
-modalBody.innerHTML = `
-
-    <h2>📚 Personalized Learning Path</h2>
-
-    <p>
-        Based on your skill gaps, we recommend:
-    </p>
-
-    <div style="
-        padding:15px;
-        background:#f8fafc;
-        border-radius:10px;
-        margin-top:15px;
-    ">
-
-        <strong>01. SQL Fundamentals</strong>
-
-        <p>
-            Learn queries, joins, grouping and databases.
-        </p>
-
-    </div>
-
-    <div style="
-        padding:15px;
-        background:#f8fafc;
-        border-radius:10px;
-        margin-top:10px;
-    ">
-
-        <strong>02. Data Structures</strong>
-
-        <p>
-            Learn arrays, stacks, queues and algorithms.
-        </p>
-
-    </div>
-
-    <div style="
-        padding:15px;
-        background:#f8fafc;
-        border-radius:10px;
-        margin-top:10px;
-    ">
-
-        <strong>03. Industry Project</strong>
-
-        <p>
-            Build a real-world data analytics project.
-        </p>
-
-    </div>
-
-    <br>
-
-    <button onclick="closeModal()">
-        Start Learning
-    </button>
-
-`;
-
-modal.style.display = "flex";
-```
-
-}
-
-// ================= APPLY =================
-
-function apply(opportunity) {
+function showLearningPath() {
 
 ```
-const name =
-    localStorage.getItem("userName");
-
-
-if (!name) {
-
-    alert(
-        "Please login first before applying."
+const data =
+    JSON.parse(
+        localStorage.getItem("skillAssessment")
     );
 
-    showLogin();
+
+if (!data) {
+
+    alert("Please complete the assessment first.");
 
     return;
 
 }
 
 
+let learning = "";
+
+
+if (data.programming < 70) {
+
+    learning += `
+
+        <div class="learning-item">
+
+            <strong>💻 Programming Fundamentals</strong>
+
+            <p>
+                Practice C, Python and problem-solving
+                fundamentals.
+            </p>
+
+        </div>
+
+    `;
+
+}
+
+
+if (data.problemSolving < 70) {
+
+    learning += `
+
+        <div class="learning-item">
+
+            <strong>🧩 Data Structures & Algorithms</strong>
+
+            <p>
+                Practice arrays, strings, searching,
+                sorting and basic algorithms.
+            </p>
+
+        </div>
+
+    `;
+
+}
+
+
+if (data.sql < 70) {
+
+    learning += `
+
+        <div class="learning-item">
+
+            <strong>🗄️ SQL & Databases</strong>
+
+            <p>
+                Learn queries, joins, relationships,
+                aggregation and database design.
+            </p>
+
+        </div>
+
+    `;
+
+}
+
+
+if (data.projects < 70) {
+
+    learning += `
+
+        <div class="learning-item">
+
+            <strong>🏗️ Build Industry Projects</strong>
+
+            <p>
+                Complete real-world projects to improve
+                practical experience.
+            </p>
+
+        </div>
+
+    `;
+
+}
+
+
+if (data.github < 70) {
+
+    learning += `
+
+        <div class="learning-item">
+
+            <strong>🐙 Git & GitHub</strong>
+
+            <p>
+                Learn version control and maintain a
+                professional project portfolio.
+            </p>
+
+        </div>
+
+    `;
+
+}
+
+
+if (learning === "") {
+
+    learning = `
+
+        <div class="learning-item">
+
+            <strong>🚀 Advanced Industry Projects</strong>
+
+            <p>
+                You can focus on advanced projects,
+                internships and placement preparation.
+            </p>
+
+        </div>
+
+    `;
+
+}
+
+
 modalBody.innerHTML = `
 
-    <h2>🎯 Application Submitted</h2>
+    <h2>
+        📚 Your Personalized Learning Path
+    </h2>
 
-    <p style="margin:20px 0;">
+    <p class="modal-description">
 
-        Hi <strong>${name}</strong>,
-
-        your application for
-
-        <strong>${opportunity}</strong>
-
-        has been submitted successfully.
+        SkillBridge AI recommends the following
+        learning journey based on your assessment.
 
     </p>
 
-    <div style="
-        background:#ecfdf3;
-        padding:15px;
-        border-radius:10px;
-        color:#15803d;
-    ">
+    ${learning}
 
-        ✓ Application received
-
-    </div>
-
-    <br>
 
     <button onclick="closeModal()">
-        Done
+
+        Go To Dashboard
+
     </button>
 
 `;
-
-modal.style.display = "flex";
 ```
 
 }
 
-// ================= CLOSE MODAL =================
+// =====================================================
+// 8. CLOSE MODAL
+// =====================================================
 
 function closeModal() {
 
@@ -434,21 +899,31 @@ if (event.target === modal) {
 
 };
 
-// ================= WELCOME USER =================
+// =====================================================
+// 9. CHECK USER WHEN WEBSITE OPENS
+// =====================================================
 
-window.addEventListener("load", function() {
+window.addEventListener(
+"load",
+function() {
 
 ```
-const name =
-    localStorage.getItem("userName");
+    const student =
+        localStorage.getItem("studentData");
 
-if (name) {
 
-    console.log(
-        "Welcome back, " + name
-    );
+    if (student) {
+
+        const data =
+            JSON.parse(student);
+
+        console.log(
+            "Welcome back, " + data.name
+        );
+
+    }
 
 }
 ```
 
-});
+);
