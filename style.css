@@ -787,3 +787,312 @@ margin-top: 5px;
 ```
 
 }
+```css
+/* =====================================================
+   INDUSTRY COLLABORATION
+   ===================================================== */
+
+.industry-section {
+    padding: 80px 7%;
+    background: #ffffff;
+}
+
+.industry-collaboration {
+    max-width: 1100px;
+    margin: 50px auto;
+    padding: 40px;
+    border-radius: 22px;
+    background: linear-gradient(135deg, #eef2ff, #f8fafc);
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.collaboration-text h2 {
+    font-size: 32px;
+    margin: 15px 0;
+}
+
+.collaboration-text p {
+    color: #667085;
+}
+
+.collaboration-points {
+    margin-top: 25px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.collaboration-points div {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    border: 1px solid #eaecf0;
+}
+
+.industry-stat-card {
+    background: white;
+    padding: 25px;
+    border-radius: 18px;
+    box-shadow: 0 15px 40px rgba(0,0,0,.07);
+}
+
+.industry-stat {
+    text-align: center;
+    padding: 18px;
+    border-bottom: 1px solid #eaecf0;
+}
+
+.industry-stat:last-child {
+    border-bottom: none;
+}
+
+.industry-stat strong {
+    display: block;
+    color: #4f46e5;
+    font-size: 32px;
+}
+
+.industry-stat span {
+    color: #667085;
+}
+
+
+/* =====================================================
+   OPPORTUNITY HEADER
+   ===================================================== */
+
+.opportunity-header {
+    max-width: 1100px;
+    margin: 60px auto 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.opportunity-header h2 {
+    margin-top: 8px;
+}
+
+.opportunity-tabs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    border: 1px solid #d0d5dd;
+    background: white;
+    color: #475467;
+    padding: 9px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.tab-btn.active,
+.tab-btn:hover {
+    background: #4f46e5;
+    color: white;
+    border-color: #4f46e5;
+}
+
+
+/* =====================================================
+   SEARCH
+   ===================================================== */
+
+.opportunity-search {
+    max-width: 1100px;
+    margin: 20px auto 30px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 12px;
+}
+
+.opportunity-search input,
+.opportunity-search select {
+    padding: 13px;
+    border: 1px solid #d0d5dd;
+    border-radius: 9px;
+    outline: none;
+    background: white;
+}
+
+.opportunity-search input:focus,
+.opportunity-search select:focus {
+    border-color: #4f46e5;
+}
+
+
+/* =====================================================
+   OPPORTUNITY CARDS
+   ===================================================== */
+
+.opportunity-grid {
+    max-width: 1100px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.opportunity-card {
+    background: white;
+    border: 1px solid #eaecf0;
+    border-radius: 15px;
+    padding: 24px;
+    transition: .3s;
+}
+
+.opportunity-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,.08);
+}
+
+.opportunity-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.opportunity-type {
+    color: #4f46e5;
+    font-size: 11px;
+    font-weight: 800;
+    background: #eef2ff;
+    padding: 5px 9px;
+    border-radius: 15px;
+}
+
+.opportunity-card h3 {
+    margin: 10px 0 3px;
+}
+
+.opportunity-company {
+    color: #4f46e5;
+    font-weight: bold;
+}
+
+.opportunity-description {
+    color: #667085;
+    font-size: 14px;
+    margin: 12px 0;
+}
+
+.opportunity-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0;
+}
+
+.meta-tag {
+    background: #f2f4f7;
+    padding: 5px 9px;
+    border-radius: 6px;
+    color: #475467;
+    font-size: 12px;
+}
+
+.opportunity-bottom {
+    border-top: 1px solid #eaecf0;
+    margin-top: 18px;
+    padding-top: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.opportunity-match {
+    color: #15803d;
+    font-weight: bold;
+}
+
+.view-btn {
+    border: none;
+    background: #4f46e5;
+    color: white;
+    padding: 9px 15px;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+
+/* =====================================================
+   COMPANY MODAL
+   ===================================================== */
+
+.modal-content textarea {
+    width: 100%;
+    min-height: 100px;
+    resize: vertical;
+    border: 1px solid #d0d5dd;
+    border-radius: 8px;
+    padding: 12px;
+    font-family: Arial, sans-serif;
+}
+
+.modal-content hr {
+    border: none;
+    border-top: 1px solid #eaecf0;
+    margin: 20px 0;
+}
+
+.modal-content h3 {
+    margin-top: 18px;
+    margin-bottom: 5px;
+}
+
+.modal-content p {
+    color: #667085;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+   ===================================================== */
+
+@media(max-width: 900px) {
+
+    .industry-collaboration {
+        grid-template-columns: 1fr;
+    }
+
+    .opportunity-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .opportunity-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+}
+
+@media(max-width: 600px) {
+
+    .industry-section {
+        padding: 60px 20px;
+    }
+
+    .industry-collaboration {
+        padding: 25px;
+    }
+
+    .collaboration-points {
+        grid-template-columns: 1fr;
+    }
+
+    .opportunity-search {
+        grid-template-columns: 1fr;
+    }
+
+}
+```
