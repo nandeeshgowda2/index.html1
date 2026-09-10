@@ -874,3 +874,407 @@
 
 </body>
 </html>
+```html
+<!-- =====================================================
+     INDUSTRY COLLABORATION
+     ===================================================== -->
+
+<section id="industrySection" class="industry-section">
+
+    <div class="section-title">
+
+        <span>ACADEMIA – INDUSTRY COLLABORATION</span>
+
+        <h2>Connect With Industry</h2>
+
+        <p>
+            Students can discover companies, internships,
+            jobs and real-world industry projects based
+            on their skills.
+        </p>
+
+    </div>
+
+
+    <!-- COMPANY COLLABORATION -->
+
+    <div class="industry-collaboration">
+
+        <div class="collaboration-text">
+
+            <span class="badge">
+                INDUSTRY PARTNERS
+            </span>
+
+            <h2>
+                Build Strong Academia–Industry Connections
+            </h2>
+
+            <p>
+                Companies can collaborate with colleges,
+                offer internships, provide real-world projects,
+                conduct workshops and recruit skilled students.
+            </p>
+
+
+            <div class="collaboration-points">
+
+                <div>
+                    🤝
+                    <strong>
+                        Industry Partnerships
+                    </strong>
+                </div>
+
+                <div>
+                    🧑‍💻
+                    <strong>
+                        Live Industry Projects
+                    </strong>
+                </div>
+
+                <div>
+                    🎓
+                    <strong>
+                        Student Internships
+                    </strong>
+                </div>
+
+                <div>
+                    💼
+                    <strong>
+                        Campus Recruitment
+                    </strong>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="industry-stat-card">
+
+            <div class="industry-stat">
+
+                <strong>50+</strong>
+
+                <span>
+                    Industry Partners
+                </span>
+
+            </div>
+
+
+            <div class="industry-stat">
+
+                <strong>120+</strong>
+
+                <span>
+                    Opportunities
+                </span>
+
+            </div>
+
+
+            <div class="industry-stat">
+
+                <strong>500+</strong>
+
+                <span>
+                    Students Connected
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- OPPORTUNITY TABS -->
+
+    <div class="opportunity-header">
+
+        <div>
+
+            <span class="badge">
+                CAREER OPPORTUNITIES
+            </span>
+
+            <h2>
+                Find Your Next Opportunity
+            </h2>
+
+        </div>
+
+
+        <div class="opportunity-tabs">
+
+            <button
+                class="tab-btn active"
+                onclick="filterOpportunities('all', this)"
+            >
+                All
+            </button>
+
+            <button
+                class="tab-btn"
+                onclick="filterOpportunities('internship', this)"
+            >
+                Internships
+            </button>
+
+            <button
+                class="tab-btn"
+                onclick="filterOpportunities('job', this)"
+            >
+                Jobs
+            </button>
+
+            <button
+                class="tab-btn"
+                onclick="filterOpportunities('project', this)"
+            >
+                Projects
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- SEARCH -->
+
+    <div class="opportunity-search">
+
+        <input
+            type="text"
+            id="opportunitySearch"
+            placeholder="🔎 Search company, role or skill..."
+            onkeyup="searchOpportunities()"
+        >
+
+        <select
+            id="locationFilter"
+            onchange="searchOpportunities()"
+        >
+
+            <option value="all">
+                All Locations
+            </option>
+
+            <option value="Hyderabad">
+                Hyderabad
+            </option>
+
+            <option value="Bangalore">
+                Bangalore
+            </option>
+
+            <option value="Chennai">
+                Chennai
+            </option>
+
+            <option value="Pune">
+                Pune
+            </option>
+
+            <option value="Remote">
+                Remote
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <!-- OPPORTUNITY LIST -->
+
+    <div
+        id="opportunityList"
+        class="opportunity-grid"
+    ></div>
+
+
+</section>
+
+
+<!-- =====================================================
+     COMPANY COLLABORATION FORM
+     ===================================================== -->
+
+<div id="companyModal" class="modal">
+
+    <div class="modal-content">
+
+        <button
+            class="close-btn"
+            onclick="closeModal()"
+        >
+            ×
+        </button>
+
+        <span class="badge">
+            INDUSTRY COLLABORATION
+        </span>
+
+        <h2>
+            Partner With SkillBridge AI
+        </h2>
+
+        <p class="modal-description">
+            Companies can collaborate with colleges,
+            offer internships, projects and recruitment.
+        </p>
+
+
+        <label>
+            Company Name
+        </label>
+
+        <input
+            type="text"
+            id="companyName"
+            placeholder="Enter company name"
+        >
+
+
+        <label>
+            Company Email
+        </label>
+
+        <input
+            type="email"
+            id="companyEmail"
+            placeholder="company@example.com"
+        >
+
+
+        <label>
+            Collaboration Type
+        </label>
+
+        <select id="collaborationType">
+
+            <option value="">
+                Select collaboration
+            </option>
+
+            <option>
+                Internship Program
+            </option>
+
+            <option>
+                Industry Project
+            </option>
+
+            <option>
+                Campus Recruitment
+            </option>
+
+            <option>
+                Workshop / Training
+            </option>
+
+            <option>
+                Apprenticeship
+            </option>
+
+        </select>
+
+
+        <label>
+            Requirements
+        </label>
+
+        <textarea
+            id="companyRequirements"
+            placeholder="Describe your requirements..."
+        ></textarea>
+
+
+        <button
+            class="primary-btn full-btn"
+            onclick="submitCollaboration()"
+        >
+            Submit Collaboration Request
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     OPPORTUNITY DETAILS MODAL
+     ===================================================== -->
+
+<div id="opportunityModal" class="modal">
+
+    <div class="modal-content">
+
+        <button
+            class="close-btn"
+            onclick="closeModal()"
+        >
+            ×
+        </button>
+
+        <span
+            id="detailType"
+            class="badge"
+        >
+            INTERNSHIP
+        </span>
+
+        <h2 id="detailRole">
+            Role
+        </h2>
+
+        <h3
+            id="detailCompany"
+            class="company"
+        >
+            Company
+        </h3>
+
+        <p id="detailLocation">
+            📍 Location
+        </p>
+
+        <hr>
+
+
+        <h3>
+            Skills Required
+        </h3>
+
+        <p id="detailSkills"></p>
+
+
+        <h3>
+            Description
+        </h3>
+
+        <p id="detailDescription"></p>
+
+
+        <h3>
+            Eligibility
+        </h3>
+
+        <p id="detailEligibility"></p>
+
+
+        <button
+            class="primary-btn full-btn"
+            onclick="applyCurrentOpportunity()"
+        >
+            Apply Now
+        </button>
+
+    </div>
+
+</div>
+```
+
