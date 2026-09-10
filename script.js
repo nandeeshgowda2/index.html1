@@ -922,6 +922,662 @@ function() {
         );
 
     }
+    ```javascript
+/* =====================================================
+   INDUSTRY + INTERNSHIP + JOB MODULE
+   ===================================================== */
+
+
+/* ================= OPPORTUNITY DATABASE ================= */
+
+const opportunities = [
+
+    {
+        id: 1,
+        type: "internship",
+        role: "Software Developer Intern",
+        company: "TechNova Solutions",
+        location: "Hyderabad",
+        skills: ["C", "Python", "Git"],
+        description:
+            "Work with software engineers on real-world application development projects.",
+        eligibility:
+            "B.Tech students with basic programming knowledge.",
+        match: 92
+    },
+
+
+    {
+        id: 2,
+        type: "internship",
+        role: "Data Analyst Intern",
+        company: "DataSphere Technologies",
+        location: "Bangalore",
+        skills: ["Python", "SQL", "Excel"],
+        description:
+            "Analyze business data and create dashboards and reports.",
+        eligibility:
+            "Students interested in data analytics and Python.",
+        match: 88
+    },
+
+
+    {
+        id: 3,
+        type: "job",
+        role: "Junior Software Engineer",
+        company: "InnovateX Labs",
+        location: "Pune",
+        skills: ["C++", "Python", "DSA"],
+        description:
+            "Join our engineering team and develop scalable software solutions.",
+        eligibility:
+            "B.Tech graduates with programming and problem-solving skills.",
+        match: 84
+    },
+
+
+    {
+        id: 4,
+        type: "job",
+        role: "Frontend Developer",
+        company: "WebMatrix Technologies",
+        location: "Remote",
+        skills: ["HTML", "CSS", "JavaScript"],
+        description:
+            "Build responsive and user-friendly web applications.",
+        eligibility:
+            "Students or graduates with frontend development skills.",
+        match: 90
+    },
+
+
+    {
+        id: 5,
+        type: "project",
+        role: "AI Crop Disease Detection",
+        company: "AgriTech Innovations",
+        location: "Hyderabad",
+        skills: ["Python", "AI", "Machine Learning"],
+        description:
+            "Develop an AI system for identifying crop diseases from images.",
+        eligibility:
+            "Students interested in AI, agriculture and machine learning.",
+        match: 86
+    },
+
+
+    {
+        id: 6,
+        type: "internship",
+        role: "AI/ML Intern",
+        company: "FutureAI Systems",
+        location: "Chennai",
+        skills: ["Python", "Machine Learning", "NumPy"],
+        description:
+            "Work on machine learning models and data preprocessing.",
+        eligibility:
+            "B.Tech students with Python basics.",
+        match: 82
+    },
+
+
+    {
+        id: 7,
+        type: "job",
+        role: "Database Engineer",
+        company: "CloudMatrix",
+        location: "Bangalore",
+        skills: ["SQL", "Database", "Python"],
+        description:
+            "Design, maintain and optimize relational databases.",
+        eligibility:
+            "Graduates with SQL and database knowledge.",
+        match: 80
+    },
+
+
+    {
+        id: 8,
+        type: "project",
+        role: "Smart Campus Platform",
+        company: "EduTech Labs",
+        location: "Remote",
+        skills: ["JavaScript", "Firebase", "UI/UX"],
+        description:
+            "Build a digital platform to improve student campus services.",
+        eligibility:
+            "Students interested in web development.",
+        match: 87
+    }
+
+];
+
+
+/* ================= CURRENT FILTER ================= */
+
+let currentOpportunityFilter = "all";
+
+let currentOpportunity = null;
+
+
+/* ================= LOAD OPPORTUNITIES ================= */
+
+function loadOpportunities() {
+
+    displayOpportunities(opportunities);
+
+}
+
+
+/* ================= DISPLAY ================= */
+
+function displayOpportunities(list) {
+
+    const container =
+        document.getElementById("opportunityList");
+
+
+    if (!container) {
+
+        return;
+
+    }
+
+
+    container.innerHTML = "";
+
+
+    if (list.length === 0) {
+
+        container.innerHTML = `
+
+            <div class="learning-item">
+
+                <strong>
+                    No opportunities found.
+                </strong>
+
+                <p>
+                    Try another search or location.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    list.forEach(opportunity => {
+
+
+        container.innerHTML += `
+
+            <div class="opportunity-card">
+
+                <div class="opportunity-top">
+
+                    <div>
+
+                        <span class="opportunity-type">
+
+                            ${opportunity.type.toUpperCase()}
+
+                        </span>
+
+                        <h3>
+                            ${opportunity.role}
+                        </h3>
+
+                        <div class="opportunity-company">
+
+                            ${opportunity.company}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <p class="opportunity-description">
+
+                    ${opportunity.description}
+
+                </p>
+
+
+                <div class="opportunity-meta">
+
+                    <span class="meta-tag">
+
+                        📍 ${opportunity.location}
+
+                    </span>
+
+
+                    ${opportunity.skills.map(skill => `
+
+                        <span class="meta-tag">
+
+                            🛠 ${skill}
+
+                        </span>
+
+                    `).join("")}
+
+                </div>
+
+
+                <div class="opportunity-bottom">
+
+                    <span class="opportunity-match">
+
+                        🎯 ${opportunity.match}% Match
+
+                    </span>
+
+
+                    <button
+                        class="view-btn"
+                        onclick="viewOpportunity(${opportunity.id})"
+                    >
+                        View Details
+                    </button>
+
+                </div>
+
+            </div>
+
+        `;
+
+    });
+
+}
+
+
+/* ================= FILTER ================= */
+
+function filterOpportunities(type, button) {
+
+    currentOpportunityFilter = type;
+
+
+    document.querySelectorAll(".tab-btn")
+        .forEach(btn => {
+
+            btn.classList.remove("active");
+
+        });
+
+
+    button.classList.add("active");
+
+
+    searchOpportunities();
+
+}
+
+
+/* ================= SEARCH ================= */
+
+function searchOpportunities() {
+
+
+    const searchInput =
+        document.getElementById(
+            "opportunitySearch"
+        );
+
+
+    const locationInput =
+        document.getElementById(
+            "locationFilter"
+        );
+
+
+    const search =
+        searchInput.value.toLowerCase();
+
+
+    const location =
+        locationInput.value;
+
+
+    const filtered =
+        opportunities.filter(opportunity => {
+
+
+            const typeMatch =
+                currentOpportunityFilter === "all" ||
+                opportunity.type ===
+                currentOpportunityFilter;
+
+
+            const locationMatch =
+                location === "all" ||
+                opportunity.location === location;
+
+
+            const text =
+                (
+                    opportunity.role +
+                    " " +
+                    opportunity.company +
+                    " " +
+                    opportunity.skills.join(" ")
+                ).toLowerCase();
+
+
+            const searchMatch =
+                text.includes(search);
+
+
+            return (
+                typeMatch &&
+                locationMatch &&
+                searchMatch
+            );
+
+        });
+
+
+    displayOpportunities(filtered);
+
+}
+
+
+/* ================= VIEW DETAILS ================= */
+
+function viewOpportunity(id) {
+
+
+    const opportunity =
+        opportunities.find(
+            item => item.id === id
+        );
+
+
+    if (!opportunity) {
+
+        return;
+
+    }
+
+
+    currentOpportunity = opportunity;
+
+
+    document.getElementById("detailType")
+        .textContent =
+        opportunity.type.toUpperCase();
+
+
+    document.getElementById("detailRole")
+        .textContent =
+        opportunity.role;
+
+
+    document.getElementById("detailCompany")
+        .textContent =
+        opportunity.company;
+
+
+    document.getElementById("detailLocation")
+        .textContent =
+        "📍 " + opportunity.location;
+
+
+    document.getElementById("detailSkills")
+        .textContent =
+        opportunity.skills.join(" • ");
+
+
+    document.getElementById("detailDescription")
+        .textContent =
+        opportunity.description;
+
+
+    document.getElementById("detailEligibility")
+        .textContent =
+        opportunity.eligibility;
+
+
+    document.getElementById("opportunityModal")
+        .style.display = "flex";
+
+}
+
+
+/* ================= APPLY ================= */
+
+function applyCurrentOpportunity() {
+
+
+    const student =
+        localStorage.getItem(
+            "studentData"
+        );
+
+
+    if (!student) {
+
+        alert(
+            "Please login as a student before applying."
+        );
+
+        closeModal();
+
+        openLogin();
+
+        return;
+
+    }
+
+
+    if (!currentOpportunity) {
+
+        return;
+
+    }
+
+
+    const studentData =
+        JSON.parse(student);
+
+
+    const application = {
+
+        student:
+            studentData.name,
+
+        studentID:
+            studentData.studentID,
+
+        company:
+            currentOpportunity.company,
+
+        role:
+            currentOpportunity.role,
+
+        type:
+            currentOpportunity.type,
+
+        date:
+            new Date().toLocaleDateString(),
+
+        status:
+            "Applied"
+
+    };
+
+
+    let applications =
+        JSON.parse(
+            localStorage.getItem(
+                "applications"
+            )
+        ) || [];
+
+
+    applications.push(application);
+
+
+    localStorage.setItem(
+        "applications",
+        JSON.stringify(applications)
+    );
+
+
+    alert(
+
+        "Application Submitted Successfully! 🎉\n\n" +
+
+        "Student: " +
+        studentData.name +
+
+        "\nCompany: " +
+        currentOpportunity.company +
+
+        "\nRole: " +
+        currentOpportunity.role +
+
+        "\nStatus: Applied"
+
+    );
+
+
+    closeModal();
+
+}
+
+
+/* ================= COMPANY COLLABORATION ================= */
+
+function openCompanyCollaboration() {
+
+    document.getElementById("companyModal")
+        .style.display = "flex";
+
+}
+
+
+function submitCollaboration() {
+
+
+    const company =
+        document.getElementById(
+            "companyName"
+        ).value.trim();
+
+
+    const email =
+        document.getElementById(
+            "companyEmail"
+        ).value.trim();
+
+
+    const type =
+        document.getElementById(
+            "collaborationType"
+        ).value;
+
+
+    const requirements =
+        document.getElementById(
+            "companyRequirements"
+        ).value.trim();
+
+
+    if (
+        !company ||
+        !email ||
+        !type ||
+        !requirements
+    ) {
+
+        alert(
+            "Please fill all collaboration details."
+        );
+
+        return;
+
+    }
+
+
+    const request = {
+
+        company:
+            company,
+
+        email:
+            email,
+
+        type:
+            type,
+
+        requirements:
+            requirements,
+
+        status:
+            "Request Submitted",
+
+        date:
+            new Date().toLocaleDateString()
+
+    };
+
+
+    let requests =
+        JSON.parse(
+            localStorage.getItem(
+                "companyRequests"
+            )
+        ) || [];
+
+
+    requests.push(request);
+
+
+    localStorage.setItem(
+        "companyRequests",
+        JSON.stringify(requests)
+    );
+
+
+    alert(
+
+        "Collaboration request submitted successfully! 🤝\n\n" +
+
+        "Company: " + company +
+
+        "\nType: " + type +
+
+        "\nStatus: Request Submitted"
+
+    );
+
+
+    closeModal();
+
+}
+
+
+/* ================= INITIALIZE ================= */
+
+window.addEventListener(
+    "load",
+    function() {
+
+        loadOpportunities();
+
+    }
+);
+```
+
 
 }
 ```
